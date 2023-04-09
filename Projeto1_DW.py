@@ -16,8 +16,8 @@ default_args = {
     #'start_date': airflow.utils.dates.days_ago(2),
     #'end_date': datetime(),
     #'depends_on_past': False,
-    'email': ['zamboni.lucas94@gmail.com'],
-    'email_on_failure': True,
+    #'email': [''],
+    #'email_on_failure': True,
     #'email_on_retry': False,
     'retries': 1,
     'retry_delay': timedelta(minutes = 5),
@@ -199,14 +199,14 @@ INSERT INTO schema3.fato_vendas (sk_produto,
                             AND tb4.id_produto = tb6.id_produto
                             GROUP BY sk_produto, sk_cliente, sk_localidade, sk_tempo;"""
 
-# Tarefa de insert na tabela
+# Tarefa de insert na tabela fato
 trunca_dados_fato = PostgresOperator(sql = sql_trunca_fato,
                                 task_id = 'tarefa_trunca_dados_fato',
                                 postgres_conn_id = 'postgresDB',
                                 dag = dag_dw_dsa
 )
 
-# Tarefa de insert na tabela
+# Tarefa de insert na tabela fato
 insere_dados_fato = PostgresOperator(sql = sql_insere_dados_fato,
                                 task_id = 'tarefa_insere_dados_fato',
                                 postgres_conn_id = 'postgresDB',
